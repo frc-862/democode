@@ -5,11 +5,8 @@
 package frc.robot.containers;
 
 import edu.wpi.first.wpilibj.Joystick;
-import frc.robot.subsystems.eddie.EddieDrivetrain;
-import frc.robot.subsystems.eddie.Indexer;
-import frc.robot.subsystems.eddie.Shooter;
-import frc.robot.commands.eddie.IndexerControl;
-import frc.robot.commands.eddie.ShooterControl;
+import frc.robot.subsystems.eddie.*;
+import frc.robot.commands.eddie.*;
 import frc.lightning.LightningConfig;
 import frc.lightning.LightningContainer;
 import frc.lightning.commands.VoltDrive;
@@ -35,7 +32,7 @@ public class EddieContainer extends LightningContainer {
     protected void configureButtonBindings() {
         //Right flight stick trigger to spin shooter
         (new JoystickButton(driverRight, 1)).whileHeld(new ShooterControl(shooter, () -> 1));
-        //Left fligt stick trigger to run indexer
+        //Left flight stick trigger to run indexer
         (new JoystickButton(driverLeft, 1)).whileHeld(new IndexerControl(indexer, () -> 1));
     }
 

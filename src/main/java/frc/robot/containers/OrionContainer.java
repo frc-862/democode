@@ -5,9 +5,8 @@
 package frc.robot.containers;
 
 import edu.wpi.first.wpilibj.Joystick;
-import frc.robot.subsystems.orion.OrionDrivetrain;
-import frc.robot.subsystems.orion.Shooter;
-import frc.robot.commands.orion.ShooterControl;
+import frc.robot.subsystems.orion.*;
+import frc.robot.commands.orion.*;
 import frc.lightning.LightningConfig;
 import frc.lightning.LightningContainer;
 import frc.lightning.commands.VoltDrive;

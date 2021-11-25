@@ -12,13 +12,8 @@ import frc.lightning.LightningContainer;
 import frc.lightning.commands.VoltDrive;
 import frc.lightning.subsystems.IMU;
 import frc.lightning.subsystems.LightningDrivetrain;
-import frc.robot.commands.glitch.ElevatorControl;
-import frc.robot.commands.glitch.FourBarControl;
-import frc.robot.commands.glitch.GripperControl;
-import frc.robot.subsystems.glitch.GlitchDrivetrain;
-import frc.robot.subsystems.glitch.Elevator;
-import frc.robot.subsystems.glitch.FourBar;
-import frc.robot.subsystems.glitch.Grippers;
+import frc.robot.commands.glitch.*;
+import frc.robot.subsystems.glitch.*;
 
 
 public class GlitchContainer extends LightningContainer {
