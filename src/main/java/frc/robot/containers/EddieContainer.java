@@ -31,9 +31,9 @@ public class EddieContainer extends LightningContainer {
     @Override
     protected void configureButtonBindings() {
         //Right flight stick trigger to spin shooter
-        (new JoystickButton(driverRight, 1)).whileHeld(new ShooterControl(shooter, () -> 1));
+        //(new JoystickButton(driverRight, 1)).whileHeld(new ShooterControl(shooter, () -> 1));
         //Left flight stick trigger to run indexer
-        (new JoystickButton(driverLeft, 1)).whileHeld(new IndexerControl(indexer, () -> 1));
+        //(new JoystickButton(driverLeft, 1)).whileHeld(new IndexerControl(indexer, () -> 1));
     }
 
     @Override

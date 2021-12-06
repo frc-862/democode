@@ -44,11 +44,11 @@ public class Robot extends LightningRobot {
                 return new SparkPlugContainer();*/
             case "eddie":
                 return new EddieContainer();
-            case "orion":
+            /*case "orion":
                 return new OrionContainer();
             case "neo":
                 return new NeoContainer();
-            /*case "flash":
+            case "flash":
                 return new FlashContainer();
             case "sirius":
                 return new SiriusContainer();
@@ -67,7 +67,7 @@ public class Robot extends LightningRobot {
             case "howitzer":
                 return new HowitzerContainer();*/
             default:
-                return null;
+                return new EddieContainer();
         }
     }
 
