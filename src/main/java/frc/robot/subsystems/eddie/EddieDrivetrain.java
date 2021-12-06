@@ -19,9 +19,9 @@ public class EddieDrivetrain extends VictorDrivetrain {
                 new Victor(4)
             }
         );
+        initMotorDirections();
     }
 
-    @Override
     public void initMotorDirections() {
         for (Victor m : getRightMotors()) {m.setInverted(true);}
     }

@@ -9,15 +9,13 @@ import java.util.function.Consumer;
 
 import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.Victor;
-import edu.wpi.first.wpilibj.controller.PIDController;
-import edu.wpi.first.wpilibj.geometry.Pose2d;
-import edu.wpi.first.wpilibj.kinematics.DifferentialDriveKinematics;
-import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.lightning.subsystems.LightningDrivetrain;
-import frc.lightning.util.RamseteGains;
 
-public class VictorDrivetrain extends SubsystemBase implements LightningDrivetrain {
+import com.lightningrobotics.common.geometry.kinematics.DrivetrainSpeed;
+import com.lightningrobotics.common.subsystem.drivetrain.*;
+import com.lightningrobotics.common.util.LightningMath;
+
+
+public class VictorDrivetrain extends LightningDrivetrain {
 
     private Victor[] leftMotors;
     private Victor[] rightMotors;
@@ -55,10 +53,7 @@ public class VictorDrivetrain extends SubsystemBase implements LightningDrivetra
 		for(var m : rightMotors) op.accept(m);
 	}
 
-    @Override
-	public void initMotorDirections() {}
 
-    @Override
 	public void setPower(double left, double right) {
         for (Victor m : leftMotors) {
             m.set(left);
@@ -68,9 +63,6 @@ public class VictorDrivetrain extends SubsystemBase implements LightningDrivetra
             m.set(right);
         }
 	}
-
-    @Override
-	public void setVelocity(double left, double right) {}
 
     public Victor[] getLeftMotors() {
 		return leftMotors;
@@ -86,7 +78,6 @@ public class VictorDrivetrain extends SubsystemBase implements LightningDrivetra
 		return null;
 	}
 
-    @Override
 	public void setOutput(double leftVolts, double rightVolts) {
         for (Victor m : leftMotors) {
 		    m.setVoltage(leftVolts);
@@ -97,7 +88,12 @@ public class VictorDrivetrain extends SubsystemBase implements LightningDrivetra
         }
 	}
 
-    @Override
+    public void tankDrive(double leftSpeed, double rightSpeed) {
+        leftSpeed = LightningMath.constrain(leftSpeed, -1.0, 1.0);
+        rightSpeed = LightningMath.constrain(rightSpeed, -1.0, 1.0);
+        setOutput(leftSpeed, rightSpeed);
+    }
+
 	public double getRightVolts() {
         double totalOutput = 0d;
 		for (Victor m : rightMotors) {
@@ -107,7 +103,6 @@ public class VictorDrivetrain extends SubsystemBase implements LightningDrivetra
         return totalOutput / rightMotors.length;
 	}
 
-	@Override
 	public double getLeftVolts() {
 		double totalOutput = 0d;
 		for (Victor m : leftMotors) {
@@ -121,60 +116,19 @@ public class VictorDrivetrain extends SubsystemBase implements LightningDrivetra
     //But mostly because I'm too lazy to implement workarounds
 
     @Override
-    public void brake() {}
+    public void configureMotors() {}
 
     @Override
-    public void coast() {}
+    public LightningGains getGains() {
+        return null;
+    }
 
     @Override
-    public RamseteGains getConstants() { return null; }
+    public void setDriveSpeed(DrivetrainSpeed arg0) {}
 
     @Override
-    public DifferentialDriveKinematics getKinematics() { return null; }
-
-    @Override
-    public double getLeftDistance() { return 0; }
-
-    @Override
-    public PIDController getLeftPidController() { return null; }
-
-    @Override
-    public double getLeftTemp() { return 0; }
-
-    @Override
-    public double getLeftVelocity() { return 0; }
-
-    @Override
-    public Pose2d getPose() { return null; }
-
-    @Override
-    public Pose2d getRelativePose() { return null; }
-
-    @Override
-    public double getRightDistance() { return 0; }
-
-    @Override
-    public PIDController getRightPidController() { return null; }
-
-    @Override
-    public double getRightTemp() { return 0; }
-
-    @Override
-    public double getRightVelocity() { return 0; }
-
-    @Override
-    public DifferentialDriveWheelSpeeds getSpeeds() { return null; }
-
-    @Override
-    public void resetDistance() {}
-
-    @Override
-    public void resetSensorVals() {}
-
-    @Override
-    public void setRamseteOutput(double arg0, double arg1) {}
-
-    @Override
-    public void setRelativePose() {}
+    public void stop() {
+        tankDrive(0.0, 0.0);
+    }
 
 }

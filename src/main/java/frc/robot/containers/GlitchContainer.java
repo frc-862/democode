@@ -4,27 +4,20 @@
 
 package frc.robot.containers;
 
+import com.lightningrobotics.common.LightningContainer;
+import com.lightningrobotics.common.subsystem.drivetrain.LightningDrivetrain;
+
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import frc.lightning.LightningConfig;
-import frc.lightning.LightningContainer;
-import frc.lightning.commands.VoltDrive;
-import frc.lightning.subsystems.IMU;
-import frc.lightning.subsystems.LightningDrivetrain;
+import frc.robot.commands.TankDrive;
 import frc.robot.commands.glitch.*;
 import frc.robot.subsystems.glitch.*;
 
 
 public class GlitchContainer extends LightningContainer {
 
-    private static final IMU imu = IMU.none();
-
-    private static final GlitchDrivetrain drivetrain = new GlitchDrivetrain(
-        null,
-        imu.heading(),
-        imu.zero()
-    );
+    private static final GlitchDrivetrain drivetrain = new GlitchDrivetrain(null);
     private static final Elevator elevator = new Elevator();
     private static final FourBar fourBar = new FourBar();
     private static final Grippers grippers = new Grippers();
@@ -49,7 +42,7 @@ public class GlitchContainer extends LightningContainer {
     @Override
     protected void configureDefaultCommands() {
         //Standard Tank Drive Controls
-        drivetrain.setDefaultCommand(new VoltDrive(drivetrain, () -> driverLeft.getY(), () -> driverRight.getY()));
+        drivetrain.setDefaultCommand(new TankDrive(drivetrain, () -> driverLeft.getY(), () -> driverRight.getY()));
 
         //Left Stick to move elevator
         elevator.setDefaultCommand(new ElevatorControl(elevator, operator.getY(Hand.kLeft)));
@@ -62,9 +55,6 @@ public class GlitchContainer extends LightningContainer {
     public LightningDrivetrain getDrivetrain() { return drivetrain; }
 
     @Override
-    public LightningConfig getConfig() { return null; }
-
-    @Override
     protected void configureAutonomousCommands() {};
 
     @Override
@@ -74,5 +64,15 @@ public class GlitchContainer extends LightningContainer {
     protected void initializeDashboardCommands() {};
 
     @Override
-    protected void releaseDefaultCommands() {};
+    protected void releaseDefaultCommands() {}
+
+    @Override
+    protected void configureAutonomousPaths() {}
+
+    @Override
+    protected void configureFaultCodes() {}
+
+    @Override
+    protected void configureFaultMonitors() {};
+
 }

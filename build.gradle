@@ -113,7 +113,7 @@ dependencies {
     testImplementation 'org.mockito:mockito-core:3.2.4'
     simulation wpi.deps.sim.gui(wpi.platforms.desktop, false)
     simulation wpi.deps.sim.driverstation(wpi.platforms.desktop, false)
-    implementation 'frc:lightning:0.0.0-beta2'
+    implementation 'com.lightningrobotics:common:0.0.0-beta3'
 }
 
 // Simulation configuration (e.g. environment variables).

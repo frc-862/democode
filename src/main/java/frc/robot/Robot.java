@@ -7,11 +7,13 @@
 
 package frc.robot;
 
-import frc.lightning.LightningContainer;
-import frc.lightning.LightningRobot;
+
 
 import java.nio.file.Files;
 import java.nio.file.Paths;
+
+import com.lightningrobotics.common.LightningContainer;
+import com.lightningrobotics.common.LightningRobot;
 
 import frc.robot.containers.*;
 

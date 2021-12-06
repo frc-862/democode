@@ -4,13 +4,14 @@
 
 package frc.robot.containers;
 
+import com.lightningrobotics.common.LightningContainer;
+import com.lightningrobotics.common.subsystem.drivetrain.LightningDrivetrain;
+
 import edu.wpi.first.wpilibj.Joystick;
 import frc.robot.subsystems.eddie.*;
+import frc.robot.commands.VictorTankDrive;
 import frc.robot.commands.eddie.*;
-import frc.lightning.LightningConfig;
-import frc.lightning.LightningContainer;
-import frc.lightning.commands.VoltDrive;
-import frc.lightning.subsystems.LightningDrivetrain;
+
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 /**
@@ -25,15 +26,15 @@ public class EddieContainer extends LightningContainer {
     private final Shooter shooter = new Shooter();
     private final Indexer indexer = new Indexer();
 
-    public final Joystick driverRight = new Joystick(1);
     public final Joystick driverLeft = new Joystick(0);
+    public final Joystick driverRight = new Joystick(1);
 
     @Override
     protected void configureButtonBindings() {
         //Right flight stick trigger to spin shooter
-        //(new JoystickButton(driverRight, 1)).whileHeld(new ShooterControl(shooter, () -> 1));
+        (new JoystickButton(driverRight, 1)).whileHeld(new ShooterControl(shooter, () -> 1));
         //Left flight stick trigger to run indexer
-        //(new JoystickButton(driverLeft, 1)).whileHeld(new IndexerControl(indexer, () -> 1));
+        (new JoystickButton(driverLeft, 1)).whileHeld(new IndexerControl(indexer, () -> 1));
     }
 
     @Override
@@ -42,21 +43,29 @@ public class EddieContainer extends LightningContainer {
     @Override
     protected void configureDefaultCommands() {
         //Standard tank drive bindings
-        drivetrain.setDefaultCommand(new VoltDrive(drivetrain, () -> -driverRight.getY(), () -> -driverLeft.getY()));
+        drivetrain.setDefaultCommand(new VictorTankDrive(drivetrain, () -> -driverRight.getY(), () -> -driverLeft.getY()));
     }
 
     @Override
     protected void configureSystemTests() {}
 
     @Override
-    public LightningConfig getConfig() { return null; }
-
-    @Override
-    public LightningDrivetrain getDrivetrain() { return drivetrain; }
-
-    @Override
     protected void initializeDashboardCommands() {}
 
     @Override
     protected void releaseDefaultCommands() {}
+
+    @Override
+    protected void configureAutonomousPaths() {}
+
+    @Override
+    protected void configureFaultCodes() {}
+
+    @Override
+    protected void configureFaultMonitors() {}
+
+    @Override
+    public LightningDrivetrain getDrivetrain() {
+        return drivetrain;
+    }
 }

@@ -1,14 +1,14 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.VictorDrivetrain;
 
 import java.util.function.DoubleSupplier;
 
-import com.lightningrobotics.common.subsystem.drivetrain.differential.DifferentialDrivetrain;
 import com.lightningrobotics.common.util.filter.JoystickFilter;
 
-public class TankDrive extends CommandBase {
-    private final DifferentialDrivetrain drivetrain;
+public class VictorTankDrive extends CommandBase {
+    private final VictorDrivetrain drivetrain;
     private final DoubleSupplier leftThrottle;
     private final DoubleSupplier rightThrottle;
     private double deadband = 0.1;
@@ -16,7 +16,7 @@ public class TankDrive extends CommandBase {
     private double maxPower = 1.0;
     private final JoystickFilter filter = new JoystickFilter(deadband, minPower, maxPower, JoystickFilter.Mode.CUBED);
 
-    public TankDrive(DifferentialDrivetrain drivetrain, DoubleSupplier left, DoubleSupplier right) {
+    public VictorTankDrive(VictorDrivetrain drivetrain, DoubleSupplier left, DoubleSupplier right) {
         this.drivetrain = drivetrain;
         this.leftThrottle = left;
         this.rightThrottle = right;
