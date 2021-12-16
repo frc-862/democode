@@ -69,7 +69,7 @@ public class Robot extends LightningRobot {
             case "howitzer":
                 return new HowitzerContainer();*/
             default:
-                return new EddieContainer();
+                return new GlitchContainer();
         }
     }
 

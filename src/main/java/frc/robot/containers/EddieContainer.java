@@ -6,10 +6,11 @@ package frc.robot.containers;
 
 import com.lightningrobotics.common.LightningContainer;
 import com.lightningrobotics.common.subsystem.drivetrain.LightningDrivetrain;
+import com.lightningrobotics.common.subsystem.drivetrain.differential.DifferentialGains;
 
 import edu.wpi.first.wpilibj.Joystick;
 import frc.robot.subsystems.eddie.*;
-import frc.robot.commands.VictorTankDrive;
+import frc.robot.commands.TankDrive;
 import frc.robot.commands.eddie.*;
 
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -22,7 +23,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
  */
 public class EddieContainer extends LightningContainer {
 
-    private final EddieDrivetrain drivetrain = new EddieDrivetrain();
+    private final EddieDrivetrain drivetrain = new EddieDrivetrain(new DifferentialGains());
     private final Shooter shooter = new Shooter();
     private final Indexer indexer = new Indexer();
 
@@ -43,7 +44,7 @@ public class EddieContainer extends LightningContainer {
     @Override
     protected void configureDefaultCommands() {
         //Standard tank drive bindings
-        drivetrain.setDefaultCommand(new VictorTankDrive(drivetrain, () -> -driverRight.getY(), () -> -driverLeft.getY()));
+        drivetrain.setDefaultCommand(new TankDrive(drivetrain, () -> -driverRight.getY(), () -> -driverLeft.getY()));
     }
 
     @Override

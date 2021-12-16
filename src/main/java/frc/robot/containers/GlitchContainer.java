@@ -6,6 +6,7 @@ package frc.robot.containers;
 
 import com.lightningrobotics.common.LightningContainer;
 import com.lightningrobotics.common.subsystem.drivetrain.LightningDrivetrain;
+import com.lightningrobotics.common.subsystem.drivetrain.differential.DifferentialGains;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
@@ -17,7 +18,8 @@ import frc.robot.subsystems.glitch.*;
 
 public class GlitchContainer extends LightningContainer {
 
-    private static final GlitchDrivetrain drivetrain = new GlitchDrivetrain(null);
+    private static final GlitchDrivetrain drivetrain = new GlitchDrivetrain(new DifferentialGains());
+
     private static final Elevator elevator = new Elevator();
     private static final FourBar fourBar = new FourBar();
     private static final Grippers grippers = new Grippers();
@@ -31,12 +33,10 @@ public class GlitchContainer extends LightningContainer {
     protected void configureButtonBindings() {
         //All button bindings are on OPERATOR controller
         //Right bumper to collect cubes
-        (new JoystickButton(operator, 6)).whenPressed(new GripperControl(grippers, 1));
-        (new JoystickButton(operator, 6)).whenReleased(new GripperControl(grippers, 0.3));
+        (new JoystickButton(operator, 6)).whileHeld(new GripperControl(grippers, () -> 1));
 
         //Left bumper to eject cubes
-        (new JoystickButton(operator, 5)).whenPressed(new GripperControl(grippers, -1));
-        (new JoystickButton(operator, 5)).whenPressed(new GripperControl(grippers, 0.3));
+        (new JoystickButton(operator, 5)).whileHeld(new GripperControl(grippers, () -> -1));
     }
 
     @Override
@@ -45,10 +45,10 @@ public class GlitchContainer extends LightningContainer {
         drivetrain.setDefaultCommand(new TankDrive(drivetrain, () -> driverLeft.getY(), () -> driverRight.getY()));
 
         //Left Stick to move elevator
-        elevator.setDefaultCommand(new ElevatorControl(elevator, operator.getY(Hand.kLeft)));
+        elevator.setDefaultCommand(new ElevatorControl(elevator, () -> operator.getY(Hand.kLeft)));
 
         //Right Stick to move four bar
-        fourBar.setDefaultCommand(new FourBarControl(fourBar, operator.getY(Hand.kRight)));
+        fourBar.setDefaultCommand(new FourBarControl(fourBar, () -> operator.getY(Hand.kRight)));
     }
 
     @Override

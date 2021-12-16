@@ -4,17 +4,21 @@
 
 package frc.robot.subsystems.eddie;
 
-import edu.wpi.first.wpilibj.Victor;
-import frc.robot.subsystems.VictorDrivetrain;
+import com.lightningrobotics.common.subsystem.drivetrain.differential.DifferentialDrivetrain;
+import com.lightningrobotics.common.subsystem.drivetrain.differential.DifferentialGains;
 
-public class EddieDrivetrain extends VictorDrivetrain {
-    public EddieDrivetrain() {
+import edu.wpi.first.wpilibj.SpeedController;
+import edu.wpi.first.wpilibj.Victor;
+
+public class EddieDrivetrain extends DifferentialDrivetrain {
+    public EddieDrivetrain(DifferentialGains gains) {
         super(
-            new Victor[]{
+            gains,
+            new SpeedController[]{
                 new Victor(3),
                 new Victor(1)
             }, 
-            new Victor[]{
+            new SpeedController[]{
                 new Victor(2),
                 new Victor(4)
             }
@@ -23,6 +27,7 @@ public class EddieDrivetrain extends VictorDrivetrain {
     }
 
     public void initMotorDirections() {
-        for (Victor m : getRightMotors()) {m.setInverted(true);}
+        withEachRightMotor(m -> m.setInverted(true));
     }
+
 }

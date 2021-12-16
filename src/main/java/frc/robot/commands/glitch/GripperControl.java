@@ -4,14 +4,16 @@
 
 package frc.robot.commands.glitch;
 
+import java.util.function.DoubleSupplier;
+
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.glitch.Grippers;
 
 public class GripperControl extends CommandBase {
-    double power;
+    DoubleSupplier power;
     Grippers grippers;
     /** Creates a new ElevatorControl. */
-    public GripperControl(Grippers grippers, double power) {
+    public GripperControl(Grippers grippers, DoubleSupplier power) {
         addRequirements(grippers);
         this.grippers = grippers;
         this.power = power;
@@ -20,7 +22,7 @@ public class GripperControl extends CommandBase {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        grippers.setPower(power);
+        grippers.setPower(power.getAsDouble());
     }
 
     // Called every time the scheduler runs while the command is scheduled.

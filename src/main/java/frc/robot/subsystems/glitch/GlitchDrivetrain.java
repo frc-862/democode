@@ -15,28 +15,31 @@ import edu.wpi.first.wpilibj.geometry.Rotation2d;
 
 public class GlitchDrivetrain extends DifferentialDrivetrain {
 
+    final static SpeedController[] leftMotors = new SpeedController[]{
+        new WPI_TalonSRX(1),
+        new WPI_VictorSPX(2), 
+        new WPI_VictorSPX(3)
+    };
+
+    final static SpeedController[] rightMotors = new SpeedController[]{
+        new WPI_TalonSRX(4), 
+        new WPI_VictorSPX(5), 
+        new WPI_VictorSPX(6)
+    };
+
     public GlitchDrivetrain(DifferentialGains gains) {
         super(
             gains,
-            new SpeedController[]{
-                new WPI_TalonSRX(1),
-                new WPI_VictorSPX(2), 
-                new WPI_VictorSPX(3)
-            },
-            new SpeedController[]{
-                new WPI_TalonSRX(4), 
-                new WPI_VictorSPX(5), 
-                new WPI_VictorSPX(6)
-            }
+            leftMotors,
+            rightMotors
         );
         initMotorDirections();
     }
 
     public void initMotorDirections() {
-        [0, 3, 4]
-        getLeftMotors()[0].setInverted(true);
-        getRightMaster().setInverted(true);
-        getRightMotors()[1].setInverted(true);
+        leftMotors[0].setInverted(true);
+        rightMotors[0].setInverted(true);
+        rightMotors[1].setInverted(true);
     }
 
 }
